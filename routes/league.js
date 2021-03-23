@@ -11,6 +11,9 @@ router
 
 router.route('/new-league').get(catchAsync(leagues.renderNewForm));
 
-router.route('/:league').get(catchAsync(leagues.showLeague));
+router
+	.route('/:league')
+	.get(catchAsync(leagues.showLeague))
+	.delete(isLoggedIn, catchAsync(leagues.deleteLeague));
 
 module.exports = router;

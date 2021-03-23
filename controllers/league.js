@@ -53,3 +53,9 @@ module.exports.showLeague = async (req, res) => {
 		res.render('league/show', { sport: req.session.sport, league });
 	}
 };
+
+module.exports.deleteLeague = async (req, res) => {
+	const id = req.params.league;
+	await League.findByIdAndDelete(id);
+	res.redirect(`/${req.session.sport}/league`);
+};

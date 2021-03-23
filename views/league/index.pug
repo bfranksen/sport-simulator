@@ -8,6 +8,18 @@ block content
             .col-12.align-self-start.banner-top
                 include ../partials/ads/bannerTop
             .col-12.main-content
+                .modal.fade.text-dark#delete-modal(tabindex="-1")
+                    .modal-dialog 
+                        .modal-content 
+                            .modal-header 
+                                h5.modal-title Delete League?
+                                button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                            .modal-body 
+                                p Are you sure you want to delete this league? This action cannot be undone.
+                            .modal-footer 
+                                button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close 
+                                form.d-inline#modal-delete-form(method="POST")
+                                    button.btn.btn-danger Delete
                 if (sport && leagues.length > 2)
                         .w-100
                             h1.text-center.text-white Your #{sport.substring(0, 1).toUpperCase() + sport.substring(1)} Leagues
@@ -42,6 +54,7 @@ block content
                         'August', 'September', 'October',
                         'November', 'December'
                 ];
+
                 $('#league-table').DataTable({
                     dom: '<f<t>p>',
                     data: data,
@@ -62,7 +75,11 @@ block content
                             searchable: false, 
                             className: "t-league-play",
                             width: "8%",
-                            render: function (data, type, row) { return '<a class="btn btn-md btn-success play-btn" href="' + path + row._id + '">Play</a>' } 
+                            render: function (data, type, row) { 
+                                return '<a style="margin-right: 2px;" type="button" class="btn btn-sm btn-success play-btn" href="' + path + row._id + '">Play</a>' +
+                                    '<button style="margin-left: 2px;" type="button" class="btn btn-sm btn-danger play-btn pre-modal-delete-btn" data-bs-href="' + row._id + '" data-bs-toggle="modal" data-bs-target="#delete-modal">Delete</button>'
+                                    //- '<form class="d-inline" onsubmit="confirm("Are you sure you want to delete?)" action="/' + currentSport + '/' + row._id + '?_method=DELETE" method="POST"><button type="button" style="margin-left: 2px;" class="btn btn-sm btn-danger" data-toggle="modal" data-target>Delete</button></form>'
+                                } 
                         },
                         { data: "name", responsivePriority: 1, title: "League", className: "t-league-main", width: "15%" },
                         { data: "team", responsivePriority: 2, title: "Team", className: "t-league-main", width: "15%", defaultContent: "", render: function(data, type, row) { return `${row.team.teamName}` } },
@@ -116,6 +133,10 @@ block content
                     ],
                     order: [[1, 'asc']],
                     pageLength: 5,
-                });        
+                });
+
+                $('.pre-modal-delete-btn').click(function() {
+                    $('#modal-delete-form').attr('action', '/' + currentSport + '/league/' + $(this).data('bsHref') + '?_method=DELETE');
+                });
             });
         link(rel='stylesheet', href='/stylesheets/table.css')
