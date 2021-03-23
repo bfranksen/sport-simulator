@@ -1,0 +1,52 @@
+extends ../layout
+
+block content 
+    include ../partials/sidebar
+    .container.d-flex.flex-column.w-100.h-100
+        .row.d-flex.flex-grow-1
+            //- if user !== 'premium' --> for future premium members
+            .col.align-self-start.banner-top
+                include ../partials/ads/bannerTop
+            .col-lg-10.offset-lg-1.main-content
+                h1.text-center New League 
+                .container-fluid.p-0
+                    .row
+                        .col-md-8.mb-3
+                            .card.h-100.shadow-lg.bg-dark.text-light 
+                                .card-body
+                                    form.validated-form.d-flex.flex-column.align-items-stretch(action="/baseball/league" method="POST" novalidate)
+                                        .mb-3 
+                                            label.form-label(for="name") League Name 
+                                            input.form-control.bg-dark.text-light(type="text" name="league[name]" id="name" required autofocus)
+                                        .mb-3 
+                                            label.form-label(for="year") Starting Year 
+                                            select.form-select.bg-dark.text-light(type="select" name="league[year]" id="year" required)
+                                                - var x = 2021;
+                                                while x > 1950
+                                                    option(value="" + x) #{x}
+                                                    - x--
+                                        .mb-3 
+                                            label.form-label(for="team") Team
+                                            select.form-select.bg-dark.text-light(type="select" name="league[team]" id="team" required)
+                                                each team in teams
+                                                    option(value="" + team._id) #{team.teamName}
+                                        .d-grid.gap-2
+                                            button.league-btn.btn.btn-success Create League
+                        .col-md-4.mb-3
+                            .card.h-100.shadow-lg.border-0.bg-dark
+                                ul.list-group.list-group-flush
+                                    li.p-3.list-group-item.bg-dark.text-light.border-bottom.border-light
+                                        h2.fs-5 Real data as far back as 1870
+                                        p.m-0 This is a text area
+                                    li.p-3.list-group-item.bg-dark.text-light.border-bottom.border-light
+                                        h2.fs-5 Real data as far back as 1870
+                                        p.m-0 This is a text area
+                                    li.p-3.list-group-item.bg-dark.text-light
+                                        h2.fs-5 Real data as far back as 1870
+                                        p.m-0 This is a text area
+            //- if user !== 'premium' --> for future premium members
+            .col.align-self-end.banner-bot
+                include ../partials/ads/bannerBot
+    //- if user !== 'premium' --> for future premium members
+    .pe-3.sky-right
+        include ../partials/ads/skyRight

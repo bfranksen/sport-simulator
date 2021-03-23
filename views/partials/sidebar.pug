@@ -1,0 +1,51 @@
+.collapse.show.width.bg-dark#sidebar-wrapper
+    if sport
+        - const pathSport = `/${sport}`;
+        if league
+            - const pathLeague = `${pathSport}/league/${league.slug}`;
+            .list-group.list-group-flush.mt-2
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathSport}/league`) Switch Leagues
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathLeague}`) League Home
+            .sidebar-heading.mt-2.mb-1.px-2 LEAGUE
+            .list-group.list-group-flush.my-1
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathLeague}/standings`) Standings
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathLeague}/transactions`) Transactions
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathLeague}/power-rankings`) Power Rankings
+            .sidebar-heading.mt-2.mb-1.px-2 TEAM
+            .list-group.list-group-flush.my-1
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathLeague}/schedule`) Schedule
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathLeague}/roster`) Roster
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathLeague}/finances`) Finances
+        else
+            .list-group.list-group-flush.mt-2 
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathSport}`) #{sport.substring(0,1).toUpperCase() + sport.substring(1)} Home
+            .list-group.list-group-flush
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathSport}/exh`) Exhibition
+            .list-group.list-group-flush 
+                a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`${pathSport}/league`) League
+    .sidebar-heading.mt-2.mb-1.px-2 TOOLS
+    .list-group.list-group-flush.mt-1
+        a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`/game-manual`) Game Manual
+        if user
+            a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`/delete-leagues`) Delete Leagues
+            a.list-group-item.list-group-action-item.text-white.ps-3.pe-4.py-1(href=`/global-settings`) Global Settings
+div#sidebar-button-div
+    button.btn.btn-primary.m-0.p-0#sidebar-button(type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-wrapper" aria-expanded="false" aria-controls="collapseExample")
+script(type="text/javascript").
+    function sidebarVisibility() {
+        const sw = document.getElementById('sidebar-wrapper');
+        const sbd = document.getElementById('sidebar-button-div');
+        if (window.innerWidth < 992) {
+            sw.style.display = 'none';
+            sbd.style.display = 'none';
+        } else {
+            sw.style.display = '';
+            sbd.style.display = '';
+        }
+    }
+    jQuery(function () {
+        sidebarVisibility();
+    });  
+    $(window).resize(function() {
+        sidebarVisibility();
+    })

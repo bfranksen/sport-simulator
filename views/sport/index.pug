@@ -1,0 +1,43 @@
+extends ../layout
+
+block content 
+    include ../partials/sidebar
+    .container.d-flex.flex-column.w-100.h-100
+        .row.flex-grow-1
+            //- if user !== 'premium' --> for future premium members
+            .col-12.align-self-start.banner-top
+                include ../partials/ads/bannerTop
+            .col-12.main-content.my-3
+                .row.w-100.m-0.sport-card-group
+                    .col-12.col-lg-5.offset-lg-1.p-0.sport-card-col
+                        .card.h-100
+                            .sport-card-title.p-2
+                                h2.card-title.text-center.m-0 Exhibition Play
+                            img.card-img-top(src="http://via.placeholder.com/640x360", alt="")
+                            .card-body.p-0
+                                ul.list-group.list-group-flush.p-3.ps-4
+                                    li.list-group.item.pt-1
+                                        h3.fs-6.mb-2 Choose any team from 1871-2021
+                                        h3.fs-6.mb-2 Uses real data to simulate historical match-ups
+                                        h3.fs-6.mb-1 Simulate a single game or a play-off formatted series
+                            .card-footer.text-center.py-2
+                                a.btn.btn-cool-blues.btn-rounded.w-75(href="/baseball/exh") Choose Matchup
+                    .col-12.col-lg-5.offset-lg-1.p-0.sport-card-col
+                        .card.h-100
+                            .sport-card-title.p-2
+                                h2.card-title.text-center.m-0 League Play
+                            img.card-img-top(src="http://via.placeholder.com/640x360", alt="")
+                            .card-body.p-0
+                                ul.list-group.list-group-flush.p-3.ps-4
+                                    li.list-group.item.pt-1
+                                        h3.fs-6.mb-2 Create your own league simulation
+                                        h3.fs-6.mb-2 Use real data or generate random teams and players
+                                        h3.fs-6.mb-1 Take control of one (or many) teams in the league
+                            .card-footer.text-center.py-2
+                                a.btn.btn-cool-blues.btn-rounded.w-75(href="/baseball/league") Create Custom League
+            //- if user !== 'premium' --> for future premium members
+            .col-12.align-self-end.banner-bot
+                include ../partials/ads/bannerBot
+    //- if user !== 'premium' --> for future premium members
+    .pe-3.sky-right
+        include ../partials/ads/skyRight

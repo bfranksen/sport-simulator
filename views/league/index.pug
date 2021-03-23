@@ -1,0 +1,121 @@
+extends ../layout
+
+block content 
+    include ../partials/sidebar
+    .container.d-flex.flex-column.w-100.h-100
+        .row.flex-grow-1
+            //- if user !== 'premium' --> for future premium members
+            .col-12.align-self-start.banner-top
+                include ../partials/ads/bannerTop
+            .col-12.main-content
+                if (sport && leagues.length > 2)
+                        .w-100
+                            h1.text-center.text-white Your #{sport.substring(0, 1).toUpperCase() + sport.substring(1)} Leagues
+                        .w-100#league-table-col
+                            table#league-table.table.table-hover.table-striped.table-dark.border-top.border-bottom.text-center.align-middle.nowrap
+                                thead
+                                tbody
+                        .w-100.text-center
+                            a.league-btn.btn.btn-primary(href=`/${sport}/league/new-league`) Create New League
+                else
+                    .w-100
+                        h1.text-center.text-white No available leagues. Create one!
+                    .w-100.text-center
+                        a.league-btn.btn.btn-primary(href=`/${sport}/league/new-league`) Create New League
+            //- if user !== 'premium' --> for future premium members
+            .col-12.align-self-end.banner-bot
+                include ../partials/ads/bannerBot
+    //- if user !== 'premium' --> for future premium members
+    .pe-3.sky-right
+        include ../partials/ads/skyRight
+    if (sport && leagues.length > 2)
+        link(rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css")
+        script(type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.js")
+        script(type="text/javascript").
+            jQuery(function () {   
+                const currentSport = `#{sport}`;
+                const path = `/${currentSport}/league/`;
+                const data = !{leagues};
+                const monthNames = [
+                        'January', 'February', 'March',
+                        'April', 'May', 'June', 'July',
+                        'August', 'September', 'October',
+                        'November', 'December'
+                ];
+                $('#league-table').DataTable({
+                    dom: '<f<t>p>',
+                    data: data,
+                    responsive: {
+                        details: {
+                            type: 'column'
+                        }
+                    },
+                    columnDefs: [{
+                        className: 'dtr-control',
+                        targets: 7
+                    }],
+                    columns: [
+                        { 
+                            data: null, 
+                            responsivePriority: 1,
+                            orderable: false, 
+                            searchable: false, 
+                            className: "t-league-play",
+                            width: "8%",
+                            render: function (data, type, row) { return '<a class="btn btn-md btn-success play-btn" href="' + path + row._id + '">Play</a>' } 
+                        },
+                        { data: "name", responsivePriority: 1, title: "League", className: "t-league-main", width: "15%" },
+                        { data: "team", responsivePriority: 2, title: "Team", className: "t-league-main", width: "15%", defaultContent: "", render: function(data, type, row) { return `${row.team.teamName}` } },
+                        { data: "stage", responsivePriority: 3, title: "Stage", className: "t-league-main", width: "15%", defaultContent: "", render: function(data, type, row) { return `${row.stage.currentYear} ${row.stage.pointOfSeason}`} },
+                        { data: "numSeasons", responsivePriority: 5, title: "# Seasons", className: "t-league-toggle", defaultContent: "",
+                            render: function(data, type, row) {
+                                return row.stage.currentYear - row.startingYear + 1;
+                            }
+                        },
+                        { data: "createdAt", responsivePriority: 5, title: "Created", className: "t-league-toggle", defaultContent: "", 
+                            render: function(data, type, row) {
+                                const date = new Date(row.createdAt);
+                                return `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+                            } 
+                        },
+                        { data: "updatedAt", responsivePriority: 4, title: "Last Played", className: "t-league-toggle", defaultContent: "",
+                            render: function(data, type, row) {
+                                const lastUpdated = new Date(row.updatedAt);
+                                const currentTime = new Date(Date.now());
+
+                                const yearDiff = currentTime.getFullYear() - lastUpdated.getFullYear();
+                                if (yearDiff > 0) {
+                                    return yearDiff === 1 ? `${yearDiff} year ago` : `${yearDiff} years ago`;
+                                }
+                                const monthDiff = currentTime.getMonth() - lastUpdated.getMonth();
+                                if (monthDiff > 0) {
+                                    return monthDiff === 1 ? `${monthDiff} month ago` : `${monthDiff} months ago`;
+                                }
+                                const dayDiff = currentTime.getDate() - lastUpdated.getDate();
+                                if (dayDiff > 0) {
+                                    return dayDiff === 1 ? `${dayDiff} day ago` : `${dayDiff} days ago`;
+                                }
+                                const hourDiff = currentTime.getHours() - lastUpdated.getHours();
+                                if (hourDiff < 0) {
+                                    hourDiff = 24 + hourDiff;
+                                }
+                                if (hourDiff > 0) {
+                                    return hourDiff === 1 ? `${hourDiff} hour ago` : `${hourDiff} hours ago`;
+                                }
+                                const minuteDiff = currentTime.getMinutes() - lastUpdated.getMinutes();
+                                return minuteDiff === 1 ? `${minuteDiff} minute ago` : `${minuteDiff} minutes ago`;
+                                //- return `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+                            }
+                        },
+                        {
+                            data: null,
+                            orderable: false,
+                            searchable: false,
+                            responsivePriority: 100
+                        }
+                    ],
+                    order: [[1, 'asc']],
+                    pageLength: 5,
+                });        
+            });
+        link(rel='stylesheet', href='/stylesheets/table.css')

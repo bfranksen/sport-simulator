@@ -1,0 +1,20 @@
+extends ../layout
+
+block content 
+    include ../partials/sidebar
+    .container.d-flex.flex-column.w-100.h-100
+        .row.flex-grow-1
+            //- if user !== 'premium' --> for future premium members
+            .col-12.align-self-start.banner-top
+                include ../partials/ads/bannerTop
+            .col-12.main-content
+                .container-fluid
+                    .row.w-100.m-0 
+                        .col-6.text-center
+                            span.display-6 Away 
+                        .col-6.text-center
+                            span.display-6 Home
+            .col-12.align-self-end.banner-bot
+                include ../partials/ads/bannerBot
+    .pe-3.sky-right 
+        include ../partials/ads/skyRight

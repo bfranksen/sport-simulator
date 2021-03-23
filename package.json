@@ -1,0 +1,34 @@
+{
+  "name": "sportsimulator",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^4.2.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "device": "^0.3.12",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.2",
+    "express-session": "^1.17.1",
+    "helmet": "^4.4.1",
+    "http-errors": "~1.6.3",
+    "joi": "^17.4.0",
+    "jquery": "^3.6.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.11.18",
+    "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^6.1.0",
+    "path": "^0.12.7",
+    "pug": "^3.0.2",
+    "sanitize-html": "^2.3.2",
+    "slugify": "^1.4.7"
+  }
+}

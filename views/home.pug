@@ -1,0 +1,52 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title= title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/homePage.css')
+    script(src="/javascripts/bootstrap.min.js")
+  -
+    const images = [
+      'https://images.unsplash.com/photo-1503766587563-7cf366650cd9?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1489&q=80',
+      'https://images.unsplash.com/photo-1528552904359-07bab3b488ab?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      'https://images.unsplash.com/photo-1494011484127-649ce230149c?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1347&q=80']
+    const imageUrl = images[Math.floor(Math.random() * images.length)]
+  body.d-flex.text-center.text-white(style=`background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url(${imageUrl}})`)
+    .cover-container.d-flex.flex-column.w-100.h-100.p-3.mx-auto.pb-0
+      header.mb-auto 
+        nav.nav.nav-masthead.justify-content-center
+          if device !== 'phone'
+            a.nav-link.me-auto(href="/") #{title} 
+          if !user
+            a.nav-link(href="/login") Login
+            a.nav-link(href="/register") Register
+          else 
+            a.nav-link(href="/logout") Logout
+      main.main-content.d-flex.flex-column.flex-grow-1.justify-content-center.mb-5
+        section
+          img(src="/images/icons/navbar-logo.png", alt="" width="228px" height="228px")
+          h1.display-1.mt-3 Welcome to #{title}!
+          h2.display-6.m-0.py-2 Register or login to create your own leagues and save your data.
+          h3.display-6.m-0.pb-5 Choose a sport below to begin.
+        .container.mb-5
+          .row
+            .col-12.card.home-card
+              .card-body 
+                .d-flex.justify-content-center.w-100.p-3
+                  .col-4.sport-col
+                    a.home-button.btn.btn-cool-blues.btn-rounded.font-weight-bold.border-white.bg-white.ps-5(href="/baseball") Baseball
+                      img(src="/images/icons/baseball-icon.png").sport-img
+                    span.sport-img-buffer
+                  .col-4.sport-col
+                    a.home-button.btn.btn-cool-blues.btn-rounded.font-weight-bold.border-white.bg-white.ps-5(href="/football") Football
+                      img(src="/images/icons/football-icon.png").sport-img
+                    span.sport-img-buffer
+                  .col-4.sport-col
+                    a.home-button.btn.btn-cool-blues.btn-rounded.font-weight-bold.border-white.bg-white.ps-5(href="/basketball") Basketball
+                      img(src="/images/icons/basketball-icon.png").sport-img
+                    span.sport-img-buffer
+      footer.mt-auto.text-white
+        p.mb-2 &copy; 2021 #{title}

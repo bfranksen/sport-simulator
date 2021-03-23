@@ -1,0 +1,97 @@
+table {
+    width: 100% !important;
+}
+
+table.dataTable thead .sorting {
+    background-image: url("/images/icons/sort-solid.svg") !important;
+}
+
+table.dataTable thead .sorting_asc {
+    background-image: url("/images/icons/sort-up-solid.svg") !important;
+}
+
+table.dataTable thead .sorting_desc {
+    background-image: url("/images/icons/sort-down-solid.svg") !important;
+}
+
+#league-table td, #league-table th {
+    text-align: center;
+}
+
+@media (min-width: 576px) {
+    #league-table td, #league-table th {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #league-table td, #league-table th {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .league-dt {
+        padding: 0;
+    }
+    .play-btn {
+        padding: 2px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .play-btn {
+        padding: 4px;
+    }
+}
+
+#league-table_filter {
+    width: 100%;
+    margin-bottom: 6px;
+    text-align: end !important;
+}
+
+#league-table_filter label, #league-table_filter label input {
+    width: 55%;
+    margin-left: 12px;
+    color: white;
+}
+
+@media (max-width: 992px) {
+    #league-table_filter label, #league-table_filter label input {
+        width: 65%;
+    }
+}
+
+@media (max-width: 768px) {
+    #league-table_filter label, #league-table_filter label input {
+        width: 75%;
+    }
+}
+
+@media (max-width: 576px) {
+    #league-table_filter label, #league-table_filter label input {
+        width: 65%;
+    }
+}
+
+@media (min-width: 576px) {
+    .dataTables_filter {
+        width: 100%;
+        margin-top: 4px;
+        text-align: end !important;
+    }
+}
+
+.dtr-control {
+    display: none;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background-image: url('/images/icons/times-solid.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}

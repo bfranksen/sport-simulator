@@ -1,0 +1,33 @@
+extends ../layout 
+
+block content 
+    include ../partials/sidebar
+    .container.d-flex.flex-column.align-items.center.justify-content-center.w-100.h-100
+        include ../partials/flash
+        .row.d-flex.justify-content-center.align-items-center.w-100.m-0
+            .col-sm-10.col-md-8.col-lg-6.col-xl-4 
+                .card.shadow-lg.text-dark 
+                    .card-header.m-0.p-0
+                        - 
+                            const images = [
+                            'https://images.unsplash.com/photo-1578432014316-48b448d79d57?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                            'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1226&q=80',
+                            'https://images.unsplash.com/photo-1519861531473-9200262188bf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80']
+                            const imageUrl = images[Math.floor(Math.random() * images.length)]
+                        if device !== 'phone'
+                            img.card-img-top(style="object-fit: cover; height: 256px;", src=`${imageUrl}`)
+                    .card-body 
+                        h5.card-title Login 
+                        form.validated-form(action="/login", method="POST", novalidate)
+                            .mb-3   
+                                label.form-label(for="username") Username 
+                                input.form-control(type="text" name="username" id="username" autofocus required)
+                                .valid-feedback Looks good!
+                            .mb-3
+                                label.form-label(for="password") Password 
+                                input.form-control(type="password" name="password" id="password" required)
+                                .valid-feedback Looks good!
+                            .d-grid.gap-2 
+                                button.btn.btn-success.mt-1 Login
+                        a.nav-link.p-0.mt-3(href="#") Forgot password?
+                        a.nav-link.p-0.mt-1(href="/register") Create New Account

@@ -1,0 +1,59 @@
+nav.navbar.navbar-expand-lg.px-3.navbar-dark.sticky-top.bg-dark#navbar
+    .container-fluid.px-0
+        li.nav-item.dropdown.d-flex#sidebar-li
+            a.nav-link.dropdown-toggle.p-2#sidebar-dropdown(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false")
+                i.fas.fa-bars.fa-lg
+            ul.dropdown-menu.dropdown-menu-dark.dropdown-menu-start.border-white.p-1(aria-labelledby="sidebar-dropdown")
+                if sport
+                    - const pathSport = `/${sport}`;
+                    if league 
+                        - const pathLeague = `${pathSport}/leagues/${league.slug}`;
+                        li: a.dropdown-item.ps-3.py-1(href=`${pathSport}`) Switch Leagues
+                        li: a.dropdown-item.ps-3.py-1(href=`${pathLeague}`) League Home
+                        h6.my-1.px-2 LEAGUE
+                        li: a.dropdown-item.ps-3.py-1(href=`${pathLeague}/standings`) Standings
+                        li: a.dropdown-item.ps-3.py-1(href=`${pathLeague}/transactions`) Transactions
+                        li: a.dropdown-item.ps-3.py-1(href=`${pathLeague}/power-rankings`) Power Rankings
+                        h6.my-1.px-2 TEAM
+                        li: a.dropdown-item.ps-3.py-1(href=`${pathLeague}/schedule`) Schedule
+                        li: a.dropdown-item.ps-3.py-1(href=`${pathLeague}/roster`) Roster
+                        li: a.dropdown-item.ps-3.py-1(href=`${pathLeague}/finances`) Finances
+                    else
+                        li: a.dropdown-item.ps-3.py-1(href=`${pathSport}`) Leagues
+                h6.my-1.px-2 TOOLS
+                li: a.dropdown-item.ps-3.py-1(href="/game-manual") Game Manual
+                if user
+                    li: a.dropdown-item.ps-3.py-1(href="/delete-leagues") Delete Leagues
+                    li: a.dropdown-item.ps-3.py-1(href="/global-settings") Global Settings
+        if device !== 'phone'
+            a.navbar-brand.d-flex.justify-self-center.align-items-center(href="/") 
+                img(src="/images/icons/navbar-logo.png", alt="" width="28" height="28")
+                span.ms-3 #{title}
+        else
+            a.navbar-brand(href="/") #{title}
+        li.nav-item.dropdown.d-flex
+            a.nav-link.dropdown-toggle.p-2#user-dropdown(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false")
+                if user
+                    span.px-2#user-welcome Welcome, #{user.username}
+                i.fas.fa-user.fa-lg
+            ul.dropdown-menu.dropdown-menu-dark.dropdown-menu-end.border-white.text-center.p-1(aria-labelledby="user-dropdown")
+                li
+                    if !user
+                        a.dropdown-item.px-2.py-1(href="/login") Login
+                        a.dropdown-item.px-2.py-1(href="/register") Register
+                    else
+                        a.dropdown-item.px-2.py-1(href="/account") Account
+                        a.dropdown-item.px-2.py-1(href="/logout") Logout
+
+
+
+
+
+        //-                 .container-fluid
+        //- button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-collapsed"
+        //-         aria-controls="sidebar-collapsed" aria-expanded="false" aria-label="Toggle navigation")
+        //-     span.navbar-toggler-icon
+        //- .collapse.navbar-collapse#sidebar-collapsed
+        //-     ul.navbar-nav.mr-auto
+        //-         li.nav-item     
+        //-             a.nav-link(href="#dashboard") Dashboard

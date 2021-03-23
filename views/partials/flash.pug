@@ -1,0 +1,9 @@
+if success && success.length 
+    .alert.alert-success.alert-dismissible.fade.show.text-center(role="alert")
+        =success
+        button.btn-close(type="button" data-bs-dismiss="alert" aria-label="Close")
+
+if error && error.length
+    .alert.alert-danger.alert-dismissible.fade.show.text-center(role="alert")
+        =error
+        button.btn-close(type="button" data-bs-dismiss="alert" aria-label="Close")

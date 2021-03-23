@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  .container.d-flex.v-100.h-100.justify-content-center.align-items-center
+    .row 
+      .col-10.offset-1
+        .alert.alert-danger(role="alert")
+          h1.alert-heading.text-center= error.status + ' - ' + message
+          p(style="overflow-wrap: break-word;") #{error.stack}
